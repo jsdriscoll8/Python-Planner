@@ -1,42 +1,26 @@
-import io
-def main():
-    # Intro
-    print("Welcome to the planner!")
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
+import sys
 
-    # Validate the different parts of these dates
-    dateValid = False
-    month = None
-    day = None
-    year = None
+class PyPlannerWindow(QMainWindow):
+    def __init__(self):
+        # Initialize, set title, set size
+        super().__init__()
+        self.setWindowTitle("PyPlanner")
+        self.setFixedSize(QSize(1000, 500))
 
-    while dateValid == False:
-        date = input("\nEnter a date in MM-DD-YY format, or type 'quit' to quit: ")
-        if date == 'quit':
-            break
-        elif len(date) != 8:
-            print("Invalid date!")
-        else:
-            dateValid = True
-            try:
-                month = int(date[0:2])
-            except:
-                print("Invalid month!")
-                dateValid = False
+        # Draw UI components
+        self.uiComponents()
 
-            try:
-                day = int(date[3:5])
-            except:
-                print("Invalid day!")
-                dateValid = False
+    def uiComponents(self):
+        # Create task button in top left corner
+        button = QPushButton("Create task", self)
+        button.setGeometry(0, 0, 333, 125)
 
-            try:
-                year = int(date[6:])
-            except:
-                print("Invalid year!")
-                dateValid = False
 
-    print("Thanks for using the planner!")
-    return 0
+app = QApplication(sys.argv)
 
-if __name__ == "__main__":
-    main()
+window = PyPlannerWindow()
+window.show()
+
+app.exec()
