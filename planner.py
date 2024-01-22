@@ -1,12 +1,14 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from typing import List
 import sys
 
 class PyPlannerWindow(QMainWindow):
     def __init__(self):
         # Initialize, set title, set size, class vars
         super().__init__()
+        self.curY = None
         self.addButton = None
         self.textbox = None
         self.setWindowTitle("PyPlanner")
@@ -31,8 +33,10 @@ class PyPlannerWindow(QMainWindow):
         toolbar.addAction(addGoalButton)
 
         # Task set
-        self.taskSet = set()
+        self.taskSet = []
 
+        # Task set draw
+        self.drawTasks()
 
     # Pulls up task layout
     def addTask(self):
@@ -58,7 +62,19 @@ class PyPlannerWindow(QMainWindow):
     def addButtonTrigger(self):
         self.textbox.hide()
         self.addButton.hide()
-        self.taskSet.add(self.textbox.text())
+
+        taskText = self.textbox.text()
+        newTask = QLabel(self)
+        newTask.setText(taskText)
+        newTask.setGeometry(5, 25, 200, 30)
+        self.taskSet.append(newTask)
+
+        self.drawTasks()
+        self.textbox.clear()
+
+    def drawTasks(self):
+        for task in self.taskSet:
+            task.show()
 
 
 # Initialization, execution
