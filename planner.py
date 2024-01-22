@@ -30,6 +30,10 @@ class PyPlannerWindow(QMainWindow):
         toolbar.addAction(addTaskButton)
         toolbar.addAction(addGoalButton)
 
+        # Task set
+        self.taskSet = set()
+
+
     # Pulls up task layout
     def addTask(self):
         # Textbox
@@ -54,6 +58,7 @@ class PyPlannerWindow(QMainWindow):
     def addButtonTrigger(self):
         self.textbox.hide()
         self.addButton.hide()
+        self.taskSet.add(self.textbox.text())
 
 
 # Initialization, execution
