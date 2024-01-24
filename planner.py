@@ -8,7 +8,7 @@ class PyPlannerWindow(QMainWindow):
     def __init__(self):
         # Initialize, set title, set size, class vars
         super().__init__()
-        self.curY = None
+        self.curY = 25
         self.addButton = None
         self.textbox = None
         self.setWindowTitle("PyPlanner")
@@ -66,12 +66,12 @@ class PyPlannerWindow(QMainWindow):
         taskText = self.textbox.text()
         newTask = QLabel(self)
         newTask.setText(taskText)
-        newTask.setGeometry(5, 25, 200, 30)
+        newTask.setGeometry(5, self.curY, 200, 30)
+        self.curY += 25
         self.taskSet.append(newTask)
 
         self.drawTasks()
         self.textbox.clear()
-
     def drawTasks(self):
         for task in self.taskSet:
             task.show()
